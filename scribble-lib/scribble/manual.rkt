@@ -1,5 +1,8 @@
 #lang racket/base
-(require "base.rkt"
+(require racket/contract
+         "base.rkt"
+         "core.rkt"
+         ;(only-in "struct.rkt" nested-flow?)
          "private/manual-style.rkt"
          "private/manual-scheme.rkt"
          "private/manual-code.rkt"
@@ -21,8 +24,9 @@
          defidentifier
          current-display-width
          manual-doc-style
+         (contract-out
+          [code-inset (-> block? nested-flow?)])
          (all-from-out "base.rkt"
-                       "private/manual-style.rkt"
                        "private/manual-scheme.rkt"
                        "private/manual-code.rkt"
                        "private/manual-mod.rkt"
@@ -32,6 +36,8 @@
                        "private/manual-class.rkt"
                        "private/manual-unit.rkt"
                        "private/manual-history.rkt")
+         (except-out (all-from-out "private/manual-style.rkt") code-inset)
+                       
          (except-out (all-from-out "private/manual-vars.rkt")
                      *deftogether)
          (except-out (all-from-out "private/manual-proc.rkt")

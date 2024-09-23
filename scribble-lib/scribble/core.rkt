@@ -91,8 +91,20 @@
              #:when (key-pred k))
     k))
 
-(provide (struct-out collect-info)
-         (struct-out resolve-info))
+(provide
+ (contract-out
+  (struct collect-info
+    ((fp any/c)
+     (ht any/c)
+     (ext-ht any/c)
+     (ext-demand any/c)
+     (parts any/c)
+     (tags any/c)
+     (gen-prefix any/c)
+     (relatives any/c)
+     (parents (listof part?))))
+  (struct generated-tag ()))
+ (struct-out resolve-info))
 
 ;; ----------------------------------------
 
@@ -500,8 +512,6 @@
              (if (resolve-info? ci/ri) (resolve-info-ci ci/ri) ci/ri))
             e))
 
-(provide collect-info-parents)
-
 ;; ----------------------------------------
 
 ;; Delayed index entry also has special serialization support.
@@ -608,16 +618,20 @@
    (or (current-load-relative-directory) (current-directory)))
   #:transparent)
 
-(provide (struct-out generated-tag))
+
 
 (module+ deserialize-info
   (provide deserialize-generated-tag))
 (define deserialize-generated-tag
   (make-deserialize-info values values))
 
-(provide generate-tag tag-key
-         current-tag-prefixes
-         add-current-tag-prefix)
+(provide
+ (contract-out
+  (tag-key
+  (->* (tag? resolve-info?) tag?))))
+
+(provide generate-tag
+         current-tag-prefixes)
 
 (define (generate-tag tg ci)
   (if (generated-tag? (cadr tg))
@@ -639,6 +653,12 @@
       tg))
 
 (define current-tag-prefixes (make-parameter null))
+
+(provide
+ (contract-out
+  (add-current-tag-prefix
+   (-> pair? list?))))
+
 (define (add-current-tag-prefix t)
   (let ([l (current-tag-prefixes)])
     (if (null? l)
@@ -647,8 +667,13 @@
 
 ;; ----------------------------------------
 
-(provide content->string
-         strip-aux)
+(provide
+ (contract-out
+  (content->string
+   (case->
+    (-> content? string?)
+    (-> content? any/c part? resolve-info? string?))))
+  strip-aux)
 
 ;; content->port: output-port content -> void
 ;; Writes the string content of content into op.
@@ -745,8 +770,10 @@
 
 ;; ----------------------------------------
 
-(provide block-width
-         content-width)
+(provide
+ (contract-out
+  (content-width
+  (-> content? exact-nonnegative-integer?))))
 
 (define (content-width s)
   (cond
@@ -763,6 +790,11 @@
 
 (define (flow-width f)
   (apply max 0 (map block-width f)))
+
+(provide
+ (contract-out
+  (block-width
+   (-> block? exact-nonnegative-integer?))))
 
 (define (block-width p)
   (cond

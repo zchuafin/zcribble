@@ -18,7 +18,7 @@ compatibility library mostly just re-exports
 
 
 
-@defproc[(itemize [itm (or/c whitespace? an-item?)] ...
+@defproc[(itemize [itm (or/c whitespace? item/c)] ...
                   [#:style style (or/c style? string? symbol? #f) #f]) 
          itemization?]{
 

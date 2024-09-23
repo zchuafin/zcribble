@@ -2,10 +2,15 @@
 
 (require "struct.rkt"
          "basic.rkt"
-         syntax/modcode)
-
-(provide find-racket-tag
-         (rename-out [find-racket-tag find-scheme-tag]))
+         syntax/modcode
+         racket/contract)
+(provide
+ (contract-out
+  (find-racket-tag
+   (->* (part? resolve-info? identifier? (or/c exact-integer? #f))
+        (#:space any/c #:suffix any/c #:unlinked-ok? any/c)
+        tag?)))
+   (rename-out [find-racket-tag find-scheme-tag]))
 
 (define module-info-cache (make-hasheq))
 
@@ -22,6 +27,8 @@
 (define (try thunk fail-thunk)
   (with-handlers* ([exn:fail? (lambda (exn) (fail-thunk))])
     (thunk)))
+
+;; part? resolve-info? identifier? (or/c exact-integer? #f) any/c any/c any/c
 
 (define (find-racket-tag part ri stx/binding phase-level
                          ;; assume that `stx/binding` has a suitable scope, if any,

@@ -2,7 +2,8 @@
 
 (require "base.rkt"
          "core.rkt"
-         "decode.rkt")
+         "decode.rkt"
+         racket/contract)
 
 (provide title
          section
@@ -17,11 +18,9 @@
          intern-taglet
          module-path-index->taglet
          module-path-prefix->string
-         
-         itemize item item?
 
          hspace
-         elem aux-elem
+         elem
          italic bold smaller
          tt
          subscript superscript
@@ -30,9 +29,22 @@
          get-index-entries index-block
 
          table-of-contents
-         local-table-of-contents
+         local-table-of-contents)
 
-         span-class)
+(provide
+ (contract-out
+  (itemize
+   (->* () (#:style (or/c style? string? symbol? #f)) #:rest (listof (or/c whitespace? items/c)) itemization?))))
+
+(provide
+ (contract-out
+  (aux-elem
+   (->* () () #:rest (listof pre-content?) element?))))
+
+(provide
+ (contract-out
+  (span-class
+   (->* (style-name string?) () #:rest (listof any/c) element?))))
 
 (define (span-class classname . str)
   (make-element classname (decode-content str)))
