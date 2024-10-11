@@ -1,7 +1,7 @@
 #lang racket/base
 (require racket/contract/base
          "../decode.rkt"
-         "../struct.rkt"
+         "../struct-nc.rkt"
          (only-in "../core.rkt" style)
          "manual-utils.rkt"
          "manual-style.rkt")

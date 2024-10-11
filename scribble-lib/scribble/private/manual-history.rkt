@@ -2,8 +2,8 @@
 (require (for-syntax racket/base
                      syntax/parse)
          version/utils
-         scribble/base
-         scribble/core
+         "../base.rkt"
+         "../core.rkt"
          "manual-sprop.rkt"
          "manual-ex.rkt"
          "manual-style.rkt")

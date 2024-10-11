@@ -1,6 +1,6 @@
 #lang racket/base
 (require "../decode.rkt"
-         "../struct.rkt"
+         "../struct-nc.rkt"
          "../basic.rkt"
          "../manual-struct.rkt"
          (only-in "../core.rkt" table-columns)

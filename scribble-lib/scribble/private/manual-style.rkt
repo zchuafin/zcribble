@@ -1,6 +1,6 @@
 #lang racket/base
 (require "../decode.rkt"
-         "../struct.rkt"
+         "../struct-nc.rkt"
          "../base.rkt"
          (only-in "../basic.rkt" aux-elem itemize)
          "../scheme.rkt"

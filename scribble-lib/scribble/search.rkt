@@ -1,6 +1,6 @@
 #lang racket/base
 
-(require "struct.rkt"
+(require "struct-nc.rkt"
          "basic.rkt"
          syntax/modcode)
 

@@ -1,7 +1,7 @@
 #lang racket/base
 (require racket/string
          racket/format
-         "../struct.rkt"
+         "../struct-nc.rkt"
          "../scheme.rkt"
          "../search.rkt"
          "../basic.rkt"

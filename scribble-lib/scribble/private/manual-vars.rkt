@@ -1,7 +1,7 @@
 #lang racket/base
 (require "../decode.rkt"
          "../scheme.rkt"
-         "../struct.rkt"
+         "../struct-nc.rkt"
          (only-in "../core.rkt" 
                   make-style style-name style-properties
                   nested-flow? nested-flow-blocks nested-flow-style

@@ -1,6 +1,6 @@
 #lang racket/base
 (require "../decode.rkt"
-         "../struct.rkt"
+         "../struct-nc.rkt"
          "manual-vars.rkt"
          "manual-bind.rkt"
          "manual-ex.rkt"

@@ -1,6 +1,6 @@
 #lang racket/base
 
-(require scribble/struct
+(require "struct-nc.rkt"
          (only-in scribble/core known-doc? known-doc-v)
          scribble/base-render
          scribble/search

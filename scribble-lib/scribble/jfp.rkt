@@ -5,11 +5,11 @@
          scribble/decode
          scribble/html-properties
          scribble/latex-properties
+         racket/contract
          (for-syntax racket/base))
 
-(provide abstract include-abstract
-         author author/short
-         affiliation affiliation-mark affiliation-sep)
+(provide include-abstract
+         author author/short)
 
 (define jfp-extras
   (let ([abs (lambda (s)
@@ -21,6 +21,20 @@
 
 ;; ----------------------------------------
 ;; Abstracts:
+
+(provide
+ (contract-out
+  (abstract
+   (-> pre-content? block?)))
+ (contract-out
+  (affiliation
+   (-> pre-content? element?)))
+ (contract-out
+  (affiliation-mark
+   (-> pre-content? element?)))
+ (contract-out
+  (affiliation-sep
+   (-> element?))))
 
 (define abstract-style (make-style "abstract" jfp-extras))
 

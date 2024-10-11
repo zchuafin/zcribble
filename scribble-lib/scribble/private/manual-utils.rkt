@@ -1,5 +1,5 @@
 #lang racket/base
-(require "../struct.rkt"
+(require "../struct-nc.rkt"
          "../base.rkt"
          (only-in "../core.rkt"
                    content?
