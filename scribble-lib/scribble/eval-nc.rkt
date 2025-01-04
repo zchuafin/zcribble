@@ -16,14 +16,29 @@
          racket/splicing
          racket/string
          scribble/text/wrap)
-
-
-
-(define lang-option/c
-  (or/c module-path? (list/c 'special symbol?) (cons/c 'begin list?)))
-
-(define eval-factory/c
-  (->* [(listof module-path?)] [#:pretty-print? any/c #:lang lang-option/c] any))
+block?
+(provide interaction
+         interaction0
+         interaction/no-prompt
+         interaction-eval
+         interaction-eval-show
+         racketblock+eval (rename-out [racketblock+eval schemeblock+eval])
+         racketblock0+eval
+         racketmod+eval (rename-out [racketmod+eval schememod+eval])
+         def+int
+         defs+int
+         examples
+         examples*
+         defexamples
+         defexamples*
+         make-base-eval
+         make-base-eval-factory
+         make-eval-factory
+         close-eval
+         scribble-exn->string
+         scribble-eval-handler
+         make-log-based-eval
+         with-eval-preserve-source-locations)
 
 (define scribble-eval-handler
   (make-parameter (lambda (ev c? x) (ev x))))
