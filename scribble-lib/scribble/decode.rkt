@@ -24,10 +24,16 @@
  [part-collect-decl ([element (or/c element? part-relative-element?)])]
  [part-tag-decl ([tag tag?])])
 
-(provide whitespace?
-         pre-content?
-         pre-flow?
-         pre-part?)
+(provide
+ (contract-out
+  (whitespace?
+   (-> any/c boolean?))
+  (pre-content?
+   (-> any/c boolean?))
+  (pre-flow?
+    (-> any/c boolean?))
+  (pre-part?
+   (-> any/c boolean?))))
 
  (provide/contract
  [decode (-> (listof pre-part?)

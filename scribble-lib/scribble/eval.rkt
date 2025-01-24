@@ -1,7 +1,7 @@
 #lang racket/base
 
 (require "manual.rkt" "struct.rkt" "scheme.rkt" "decode.rkt" "eval-nc.rkt"
-         (only-in "core.rkt" content? compound-paragraph plain)
+         (only-in "core.rkt" content? plain)
          racket/contract/base
          racket/file
          racket/list
@@ -17,39 +17,43 @@
          racket/string
          scribble/text/wrap)
 
-(provide interaction
-         interaction0
-         interaction/no-prompt
-         interaction-eval
-         interaction-eval-show
-         racketblock+eval (rename-out [racketblock+eval schemeblock+eval])
-         racketblock0+eval
-         racketmod+eval (rename-out [racketmod+eval schememod+eval])
-         def+int
-         defs+int
-         examples
-         examples*
-         defexamples
-         defexamples*
+(provide
+ interaction
+ interaction0
+ interaction/no-prompt
+ interaction-eval
+ interaction-eval-show
+ schemeblock+eval
+ racketblock0+eval
+ schememod+eval
+ def+int
+ defs+int
+ examples
+ examples*
+ defexamples
+ defexamples*
+ (contract-out
+  [make-base-eval
+   (->* [] [#:pretty-print? any/c #:lang lang-option/c] #:rest any/c any)]
+ [make-base-eval-factory
+  eval-factory/c]
+ [make-eval-factory
+  eval-factory/c]
+ [close-eval
+  (-> any/c any)]
+         
+ [scribble-exn->string
+  (parameter/c (-> any/c string?))]
+ [scribble-eval-handler
+  (parameter/c (-> (-> any/c any) boolean? any/c any))]
+ [make-log-based-eval
+  (-> path-string? (or/c 'record 'replay) any)]))
 
-         (contract-out
-           [make-base-eval
-            (->* [] [#:pretty-print? any/c #:lang lang-option/c] #:rest any/c any)]
-           [make-base-eval-factory
-            eval-factory/c]
-           [make-eval-factory
-            eval-factory/c]
-           [close-eval
-            (-> any/c any)]
+(define lang-option/c
+  (or/c module-path? (list/c 'special symbol?) (cons/c 'begin list?)))
 
-           [scribble-exn->string
-            (parameter/c (-> any/c string?))]
-           [scribble-eval-handler
-            (parameter/c (-> (-> any/c any) boolean? any/c any))]
-           [make-log-based-eval
-            (-> path-string? (or/c 'record 'replay) any)])
-
-         with-eval-preserve-source-locations)
+(define eval-factory/c
+  (->* [(listof module-path?)] [#:pretty-print? any/c #:lang lang-option/c] any))
 
 (provide
  (contract-out
@@ -57,16 +61,6 @@
    (case->
     (-> block? block?)
     (-> (or/c block? content?) block? block?)))))
-
-
-(struct formatted-result (content))
-
-
-(struct eval-results (contents out err))
-
-
-
-
 
 (module+ test
   (require rackunit)

@@ -10,33 +10,50 @@
 
 ;; ----------------------------------------
 
-(provide tag?)
-
-(provide block?)
-
-(provide content?)
-
-(provide element-style?)
+(provide
+ (contract-out
+  (tag?
+   [-> any/c
+       boolean?])
+  (block?
+   [-> any/c
+       boolean?])
+  (content?
+   [-> any/c
+       boolean?])
+  (element-style?
+   [-> any/c
+       boolean?])))
 
 ;; ----------------------------------------
 
-(provide deserialize-link-render-style)
+(provide
+ (contract-out
+  (deserialize-link-render-style
+   [-> procedure? (-> (values any/c procedure?))
+       any/c])))
 
 (provide
- link-render-style?
- link-render-style-mode
  (contract-out
   [link-render-style ((or/c 'default 'number)
                       . -> . link-render-style?)]
-  [current-link-render-style (parameter/c link-render-style?)]))
+  [current-link-render-style (parameter/c link-render-style?)]
+  (link-render-style?
+   [-> any/c
+       boolean?])
+  (link-render-style-mode
+   [-> link-render-style
+       (or/c 'default 'number)])))
 
 ;; ----------------------------------------
 
-(provide deserialize-numberer)
+(provide
+ (contract-out
+  (deserialize-numberer
+   [-> procedure? (-> (values any/c procedure?))
+       any/c])))
 
 (provide
- part-number-item?
- numberer?
  (contract-out
   [make-numberer ((any/c (listof part-number-item?)
                          . -> . (values part-number-item? any/c))
@@ -46,7 +63,13 @@
                   (listof part-number-item?)
                   collect-info?
                   hash?
-                  . -> . (values part-number-item? hash?))]))
+                  . -> . (values part-number-item? hash?))]
+  [part-number-item?
+   (-> any/c
+       boolean?)]
+  [numberer?
+   (-> any/c
+       boolean?)]))
 
 ;; ----------------------------------------
 
@@ -143,7 +166,10 @@
 
 
 
-(provide plain)
+(provide
+ (contract-out
+  (plain
+  [style?])))
 
 (provide/contract
  [box-mode* (string? . -> . box-mode?)])
@@ -156,7 +182,11 @@
 (provide/contract
  (struct traverse-block ([traverse block-traverse-procedure/c])))
 
-(provide deserialize-traverse-block)
+(provide
+ (contract-out
+  (deserialize-traverse-block
+   [-> procedure? (-> (values any/c procedure?))
+       any/c])))
 (define deserialize-traverse-block
   (make-deserialize-info values values))
 
@@ -168,9 +198,16 @@
 (provide/contract
  (struct traverse-element ([traverse element-traverse-procedure/c])))
 
-(provide deserialize-traverse-element)
+(provide
+ (contract-out
+  (deserialize-traverse-element
+   [-> procedure? (-> (values any/c procedure?))
+       any/c])))
 
-(provide element-traverse-procedure/c)
+(provide
+ (contract-out
+  [element-traverse-procedure/c
+   contract?]))
 (provide/contract
  [traverse-element-content (traverse-element?
                             (or/c resolve-info? collect-info?)
@@ -182,12 +219,31 @@
  (struct delayed-element ([resolve (any/c part? resolve-info? . -> . content?)]
                           [sizer (-> any)]
                           [plain (-> any)])))
+(provide
+ (contract-out
+  (add-current-tag-prefix
+   (-> pair? pair?))
+  (current-tag-prefixes
+   (parameter/c (listof string?)))
+  (generate-tag
+   (-> pair? collect-info? pair?))
+  (strip-aux
+   (-> (or/c element? list?) (or/c null? element? list?)))))
 
-(provide delayed-element-content)
+(provide
+ (contract-out
+  (delayed-element-content
+   [-> any/c resolve-info? (listof content?)])))
 
-(provide delayed-block-blocks)
+(provide
+ (contract-out
+  (delayed-block-blocks
+   [-> any/c resolve-info? (listof block?)])))
 
-(provide current-serialize-resolve-info)
+(provide
+ (contract-out
+  (current-serialize-resolve-info
+   (parameter/c (or/c #f resolve-info?)))))
 
 ;; ----------------------------------------
 
@@ -207,9 +263,10 @@
   (provide deserialize-generated-tag)
   (provide deserialize-part-relative-element))
 
-(provide part-relative-element-content)
-
-(provide collect-info-parents)
+(provide
+ (contract-out
+  (part-relative-element-content
+   (-> part-relative-element? content?))))
 
 ;; ----------------------------------------
 
@@ -232,21 +289,29 @@
 
 ;; ----------------------------------------
 
-(provide (struct-out generated-tag))
-
-(provide generate-tag tag-key
-         current-tag-prefixes
-         add-current-tag-prefix)
-
-;; ----------------------------------------
-
-(provide content->string
-         strip-aux)
+(provide
+ (contract-out
+  (struct generated-tag
+    ())
+  (tag-key
+   (-> tag? resolve-info?))
+  ))
 
 ;; ----------------------------------------
 
-(provide block-width
-         content-width)
+(provide
+ (contract-out
+  (content->string
+   (-> content? string?))))
+
+;; ----------------------------------------
+
+(provide
+ (contract-out
+  (block-width
+   (-> block? exact-nonnegative-integer?))
+  (content-width
+   (-> content? exact-nonnegative-integer?))))
 
 ;; ----------------------------------------
 

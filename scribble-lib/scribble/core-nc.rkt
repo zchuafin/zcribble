@@ -4,6 +4,8 @@
          racket/contract/base
          file/convertible)
 
+
+
 ;; ----------------------------------------
 
 (define-struct collect-info (fp ht ext-ht ext-demand parts tags gen-prefix relatives parents) #:transparent)
@@ -647,7 +649,9 @@
             (hash-ref (collect-info-tags (resolve-info-ci ri)) (cadr tg)))
       tg))
 
-(define current-tag-prefixes (make-parameter null))
+(define current-tag-prefixes
+  (make-parameter null))
+
 (define (add-current-tag-prefix t)
   (let ([l (current-tag-prefixes)])
     (if (null? l)

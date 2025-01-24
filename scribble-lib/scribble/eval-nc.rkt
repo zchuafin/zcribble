@@ -16,7 +16,6 @@
          racket/splicing
          racket/string
          scribble/text/wrap)
-block?
 (provide interaction
          interaction0
          interaction/no-prompt
@@ -38,6 +37,10 @@ block?
          scribble-exn->string
          scribble-eval-handler
          make-log-based-eval
+         with-eval-preserve-source-locations
+         as-examples
+         racketblock+eval
+         racketmod+eval
          with-eval-preserve-source-locations)
 
 (define scribble-eval-handler
