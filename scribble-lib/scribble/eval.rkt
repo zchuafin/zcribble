@@ -25,6 +25,9 @@
  interaction-eval-show
  schemeblock+eval
  racketblock0+eval
+ racketblock+eval
+ racketmod+eval
+ with-eval-preserve-source-locations
  schememod+eval
  def+int
  defs+int
@@ -60,7 +63,7 @@
   (as-examples
    (case->
     (-> block? block?)
-    (-> (or/c block? content?) block? block?)))))
+    (-> (or/c #f block? content?) block? block?)))))
 
 (module+ test
   (require rackunit)

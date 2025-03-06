@@ -177,10 +177,8 @@
 (provide
  link-render-style?
  link-render-style-mode
- (contract-out
-  [link-render-style ((or/c 'default 'number)
-                      . -> . link-render-style?)]
-  [current-link-render-style (parameter/c link-render-style?)]))
+ link-render-style
+ current-link-render-style)
 
 ;; ----------------------------------------
 
@@ -220,16 +218,8 @@
 (provide
  part-number-item?
  numberer?
- (contract-out
-  [make-numberer ((any/c (listof part-number-item?)
-                         . -> . (values part-number-item? any/c))
-                  any/c
-                  . -> . numberer?)]
-  [numberer-step (numberer?
-                  (listof part-number-item?)
-                  collect-info?
-                  hash?
-                  . -> . (values part-number-item? hash?))]))
+ make-numberer
+ numberer-step)
 
 ;; ----------------------------------------
 (provide
@@ -240,7 +230,6 @@
  (struct-out itemization)
  (struct-out nested-flow)
  (struct-out compound-paragraph)
- (struct-out element)
  (struct-out toc-element)
  (struct-out target-element)
  (struct-out toc-target-element)
@@ -262,65 +251,73 @@
  (struct-out table-cells)
  (struct-out box-mode)
  (struct-out collected-info)
- (struct-out known-doc))
+ (struct-out known-doc)
+ (struct-out traverse-element)
+ (struct-out traverse-block)
+ (struct-out render-element)
+ (struct-out element)
+ make-element
+ element-style
+ element-content
+ element?
+ traverse-element-content)
 
 
-(define-struct part (tag-prefix
-                     tags
-                     title-content
-                     style
-                     to-collect
-                     blocks
-                     parts))
-(define-struct paragraph (style
-                          content))
-(define-struct table (style
-                      blockss))
-(define-struct delayed-block (resolve))
-(define-struct itemization (style
-                            blockss))
-(define-struct nested-flow (style
-                            blocks))
-(define-struct compound-paragraph (style
-                                   blocks))
-(define-struct element (style
-                        content))
-(define-struct (toc-element element) (toc-content))
-(define-struct (target-element element) (tag))
-(define-struct (toc-target-element target-element) ())
-(define-struct (toc-target2-element toc-target-element) (toc-content))
-(define-struct (page-target-element target-element) ())
-(define-struct (redirect-target-element target-element) (alt-path
-                                        alt-anchor))
-(define-struct (link-element element) (tag))
-(define-struct (index-element element) (tag
-                              plain-seq
-                              entry-seq
-                              desc))
-(define-struct (image-element element) (path
-                              suffixes
-                              scale))
-(define-struct multiarg-element (style
-                                 contents))
-(define-struct style (name
-                      properties))
-(define-struct document-version (text))
-(define-struct document-date (text))
-(define-struct target-url (addr))
-(define-struct color-property (color))
-(define-struct background-color-property (color))
-(define-struct numberer-property (numberer
-                                  argument))
-(define-struct table-columns (styles))
-(define-struct table-cells (styless))
-(define-struct box-mode (top-name
-                         center-name
-                         bottom-name))
-(define-struct collected-info (number
-                               parent
-                               info))
-(define-struct known-doc (v
-                          id))
+(define-serializable-struct part (tag-prefix
+                                  tags
+                                  title-content
+                                  style
+                                  to-collect
+                                  blocks
+                                  parts))
+(define-serializable-struct paragraph (style
+                                       content))
+(define-serializable-struct table (style
+                                   blockss))
+(define-serializable-struct delayed-block (resolve))
+(define-serializable-struct itemization (style
+                                         blockss))
+(define-serializable-struct nested-flow (style
+                                         blocks))
+(define-serializable-struct compound-paragraph (style
+                                                blocks))
+(define-serializable-struct element (style
+                                     content))
+(define-serializable-struct (toc-element element) (toc-content))
+(define-serializable-struct (target-element element) (tag))
+(define-serializable-struct (toc-target-element target-element) ())
+(define-serializable-struct (toc-target2-element toc-target-element) (toc-content))
+(define-serializable-struct (page-target-element target-element) ())
+(define-serializable-struct (redirect-target-element target-element) (alt-path
+                                                                      alt-anchor))
+(define-serializable-struct (link-element element) (tag))
+(define-serializable-struct (index-element element) (tag
+                                                     plain-seq
+                                                     entry-seq
+                                                     desc))
+(define-serializable-struct (image-element element) (path
+                                                     suffixes
+                                                     scale))
+(define-serializable-struct multiarg-element (style
+                                              contents))
+(define-serializable-struct style (name properties))
+(define-serializable-struct document-version (text))
+(define-serializable-struct document-date (text))
+(define-serializable-struct target-url (addr))
+(define-serializable-struct color-property (color))
+(define-serializable-struct background-color-property (color))
+(define-serializable-struct numberer-property (numberer
+                                               argument))
+(define-serializable-struct table-columns (styles))
+(define-serializable-struct table-cells (styless))
+(define-serializable-struct box-mode (top-name
+                                      center-name
+                                      bottom-name))
+(define-serializable-struct collected-info (number
+                                            parent
+                                            info))
+(define-serializable-struct known-doc (v
+                                       id))
 
 
 (provide plain)
@@ -328,8 +325,8 @@
 
 (define (box-mode* name)
   (box-mode name name name))
-(provide/contract
- [box-mode* (string? . -> . box-mode?)])
+(provide
+ box-mode*)
 
 ;; ----------------------------------------
 
@@ -357,8 +354,6 @@
                  block?))))
 
 (provide block-traverse-procedure/c)
-(provide/contract
- (struct traverse-block ([traverse block-traverse-procedure/c])))
 
 (provide deserialize-traverse-block)
 (define deserialize-traverse-block
@@ -376,10 +371,8 @@
     [(resolve-info? i)
      (traverse-block-block b (resolve-info-ci i))]))
 
-(provide/contract
- [traverse-block-block (traverse-block?
-                        (or/c resolve-info? collect-info?)
-                        . -> . block?)])
+(provide
+ traverse-block-block)
 
 ;; ----------------------------------------
 
@@ -406,9 +399,6 @@
     . -> . (or/c element-traverse-procedure/c
                  content?))))
 
-(provide/contract
- (struct traverse-element ([traverse element-traverse-procedure/c])))
-
 (provide deserialize-traverse-element)
 (define deserialize-traverse-element
   (make-deserialize-info values values))
@@ -426,10 +416,6 @@
      (traverse-element-content e (resolve-info-ci i))]))
 
 (provide element-traverse-procedure/c)
-(provide/contract
- [traverse-element-content (traverse-element?
-                            (or/c resolve-info? collect-info?)
-                            . -> . content?)])
 
 ;; ----------------------------------------
 
@@ -454,10 +440,8 @@
    (or (current-load-relative-directory) (current-directory)))
   #:transparent)
 
-(provide/contract
- (struct delayed-element ([resolve (any/c part? resolve-info? . -> . content?)]
-                          [sizer (-> any)]
-                          [plain (-> any)])))
+(provide
+ (struct-out delayed-element))
 
 (module+ deserialize-info
   (provide deserialize-delayed-element))
@@ -499,10 +483,8 @@
    (or (current-load-relative-directory) (current-directory)))
   #:transparent)
 
-(provide/contract
- (struct part-relative-element ([collect (collect-info? . -> . content?)]
-                                [sizer (-> any)]
-                                [plain (-> any)])))
+(provide
+ (struct-out part-relative-element))
 
 (module+ deserialize-info
   (provide deserialize-part-relative-element))
@@ -543,8 +525,8 @@
    (or (current-load-relative-directory) (current-directory)))
   #:transparent)
 
-(provide/contract
- (struct delayed-index-desc ([resolve (any/c part? resolve-info? . -> . any)])))
+(provide
+ (struct-out delayed-index-desc))
 
 (module+ deserialize-info
   (provide deserialize-delayed-index-desc))
@@ -814,12 +796,12 @@
        (pair? (cdr l))))
 
 (provide info-key?)
-(provide/contract
- [part-collected-info (part? resolve-info? . -> . collected-info?)]
- [collect-put! (collect-info? info-key?  any/c . -> . any)]
- [resolve-get ((or/c part? #f) resolve-info? info-key? . -> . any)]
- [resolve-get/tentative ((or/c part? #f) resolve-info? info-key? . -> . any)]
- [resolve-get/ext? ((or/c part? #f) resolve-info? info-key? . -> . any)]
- [resolve-get/ext-id ((or/c part? #f) resolve-info? info-key? . -> . any)]
- [resolve-search (any/c (or/c part? #f) resolve-info? info-key? . -> . any)]
- [resolve-get-keys ((or/c part? #f) resolve-info? (info-key? . -> . any/c) . -> . any/c)])
+(provide
+ part-collected-info
+ collect-put!
+ resolve-get
+ resolve-get/tentative
+ resolve-get/ext?
+ resolve-get/ext-id
+ resolve-search
+ resolve-get-keys)

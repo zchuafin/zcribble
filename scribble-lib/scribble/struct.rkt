@@ -1,20 +1,67 @@
 #lang racket/base
 (require
-  "struct-nc.rkt"
-  (only-in "core-nc.rkt" tag-key part-number-item? element-style? content? style? nested-flow?)
+  (only-in "struct-nc.rkt" element flow? unnumbered-part? with-attributes? image-file? hover-element? script-element?
+           make-flow flow-paragraphs part-flow make-versioned-part versioned-part? styled-paragraph? styled-paragraph-style
+           make-omitable-paragraph omitable-paragraph? table-flowss make-auxiliary-table auxiliary-table? itemization-flows
+           styled-itemization? styled-itemization-style make-styled-itemization make-blockquote 
+           make-styled-paragraph target-url-style make-unnumbered-part make-with-attributes with-attributes-style
+           with-attributes-assoc make-image-file image-file-path image-file-scale make-aux-element aux-element?
+           make-hover-element hover-element-text make-script-element script-element-type script-element-script
+           element->string element-width toc-element make-itemization make-compound-paragraph
+           make-element make-part make-table make-paragraph)
+  (except-in "core.rkt" make-itemization make-compound-paragraph make-element make-part make-table make-paragraph)
+  ;(only-in "core-nc.rkt" tag-key part-number-item? element-style? content? style? nested-flow?)
   racket/provide-syntax
   racket/struct-info
   racket/contract/base
   (for-syntax racket/base))
 
 (provide
+ table
+ paragraph
+ tag-key
+ resolve-get/tentative
+ resolve-get/ext?
+ resolve-get
+ part-collected-info
+ make-delayed-element
+ paragraph-style
+ make-render-element
+ resolve-get-keys
+ element?
+ paragraph?
+ collect-info
+ resolve-info
+ tag?
+ block?
+ table?
+ delayed-block
+ delayed-element
+ itemization
+ target-element
+ make-target-element
+ table-blockss
+ make-delayed-block
+ part-relative-element
+ make-link-element
+ make-collect-element
+ toc-target-element
+ toc-target2-element
+ page-target-element
+ redirect-target-element
+ link-element
+ index-element
+ collected-info
+ collect-element
+ render-element
+ generated-tag
+ content->string
+ resolve-search
+ info-key?
+ collect-put!
+ element
  (contract-out
-  (struct collect-info
-    ((fp any/c) (ht any/c) (ext-ht any/c) (ext-demand (tag? collect-info? . -> . any/c)) (parts any/c)
-                (tags any/c) (gen-prefix any/c) (relatives any/c) (parents (listof part?))))
-  [tag? (-> any/c boolean?)]
-  [block? (-> any/c boolean?)]
-  [make-flow (-> any/c boolean?)]
+  [make-flow (-> any/c any/c)]
   [flow? (-> any/c boolean?)]
 
   ;; this is the identity function and looks to be there for backwards compatibility; this contract is a guess
@@ -43,20 +90,34 @@
    (-> content? paragraph?))
   (omitable-paragraph?
    (-> any/c boolean?))
-  (struct table
-    ((style style?) (blockss (listof (listof (or/c block? 'cont))))))
+
+  (make-table
+   (-> any/c (listof (listof (or/c (listof block?) (one-of/c 'cont))))
+       table?))
+
+  (make-itemization
+   (-> (listof (listof block?))
+       itemization?))
+
+  (make-element
+   (-> any/c any/c
+       element?))
+
+  (make-compound-paragraph
+   (-> any/c (listof block?)
+       compound-paragraph?))
+
+  (make-part
+   (-> (or/c false/c string?) (listof tag?) (or/c false/c list?)
+       any/c list? (listof block?) (listof part?)
+       part?))
+  
   (table-flowss
    (-> table? (listof (listof (or/c (listof block?) (one-of/c 'cont))))))
   (make-auxiliary-table
    (-> any/c (listof (listof (or/c (listof block?) (one-of/c 'cont)))) table?))
   (auxiliary-table?
    (-> any/c boolean?))
-
-  (struct delayed-block
-    ((resolve (any/c part? resolve-info? . -> . block?))))
-  
-  (struct itemization
-    ((style style?) (blockss (listof (listof block?)))))
   (itemization-flows
    (-> itemization?
        (listof (listof block?))))
@@ -73,92 +134,58 @@
    (-> any/c (listof block?)
        nested-flow?))
 
+  (make-toc-element
+   (-> any/c list? list? toc-element?))
+  
   (make-part-relative-element
    (-> (collect-info? . -> . content?) (-> any/c) (-> any/c)
        part-relative-element?))
 
-  (struct paragraph
-    ((style style?) (content content?)))
-
+  (make-paragraph
+   (-> list? paragraph?))
   
-
-  (struct resolve-info
-    ((ci any/c) (delays any/c) (undef any/c) (searches any/c)))
+  (paragraph-content
+   (-> any/c content?))
 
   (make-styled-paragraph
    (-> list? any/c
        paragraph?))
 
-  (struct target-url
-    ((addr path-string?) (style any/c)))
-
   (make-target-url
-   (-> path-string? any/c
+   (-> path-string? 
        target-url?))
+  (target-url-addr
+   (-> target-url? path-string?))
+  (target-url-style
+   (-> target-url? any/c))
+  (target-url?
+   (-> any/c boolean?))
 
   (make-unnumbered-part
    (-> (or/c false/c string?) (listof tag?) (or/c false/c list?) any/c list? (listof block?) (listof part?)
        unnumbered-part?))
 
-  (struct with-attributes
-    ((style any/c) (assoc (listof (cons/c symbol? string?)))))
-
   (make-with-attributes
    (-> any/c (listof (cons/c symbol? string?))
        with-attributes?))
+  (with-attributes-style
+      (-> with-attributes? any/c))
+  (with-attributes-assoc
+      (-> with-attributes? (listof (cons/c symbol? string?))))
+  (with-attributes?
+      (-> any/c boolean?))
   
-  (struct part
-    ((tag-prefix (or/c #f string?))
-     (tags (listof tag?))
-     (title-content (or/c #f list?))
-     (style style?)
-     (to-collect list?)
-     (blocks (listof block?))
-     (parts (listof part?))))
-  
-  (content->string
-   (case-> [-> content?
-               string?]
-           [-> content?
-               any/c
-               part?
-               resolve-info?
-               string?]))
-  
-  (struct compound-paragraph
-    ((style style?) (blocks (listof block?))))
-
-  (struct element
-    ((style element-style?) (content content?)))
-
-  (struct image-file
-    ((path (or/c path-string?
-                 (cons/c 'collects (listof bytes?))))
-     (scale real?)))
   (make-image-file
    (-> (or/c path-string?
              (cons/c 'collects (listof bytes?)))
        real?
        image-file?))
-
-  (struct toc-element
-    ((style element-style?) (content content?) (toc-content content?)))
-  (struct target-element
-    ((style element-style?) (content content?) (tag tag?)))
-  (struct toc-target-element
-    ((style element-style?) (content content?) (tag tag?)))
-  (struct toc-target2-element
-    ((style element-style?) (content content?) (tag tag?) (toc-content content?)))
-  (struct page-target-element
-    ((style element-style?) (content content?) (tag tag?)))
-  (struct redirect-target-element
-    ((style element-style?) (content content?) (tag tag?) (alt-path path-string?) (alt-anchor string?)))
-  (struct link-element
-    ((style element-style?) (content content?) (tag tag?)))
-  (struct index-element
-    ((style element-style?) (content content?) (tag tag?) (plain-seq (and/c pair? (listof string?)))
-                            (entry-seq (listof content?))
-                            (desc any/c)))
+  (image-file-path
+   (-> image-file? 	
+       (or/c path-string?
+             (cons/c 'collects (listof bytes?)))))
+  (image-file-scale
+   (-> image-file? real?))
   (make-aux-element
    [-> any/c list?
        element?])
@@ -186,80 +213,21 @@
   (script-element-script
    [-> script-element?
        (or/c path-string? (listof string?))])
-  (struct collected-info
-    [(number (listof part-number-item?)) (parent (or/c #f part?)) (info any/c)])
 
-  (struct delayed-element
-    ((resolve (any/c part? resolve-info? . -> . content?))
-     (sizer (-> any/c))
-     (plain (-> any/c))))
   
-  (make-delayed-element
-   (-> (any/c part? resolve-info? . -> . content?) (-> any/c) (-> any/c)
-       delayed-element?))
-         
-  (struct part-relative-element
-    ((collect (collect-info? . -> . content?)) (sizer (-> any/c)) (plain (-> any/c))))
-
-  (struct delayed-index-desc
-    ((resolve (collect-info? . -> . content?))))
   (make-delayed-index-desc
    (-> (collect-info? . -> . content?)
        delayed-index-desc?))
 
-  (struct collect-element
-    ((style element-style?) (content content?) (collect (collect-info? . -> . any/c))))
-
-  (struct render-element
-    ((style element-style?) (content content?) (render (any/c part? resolve-info? . -> . any))))
-
-  (struct generated-tag
-    ())
-
-  (tag-key
-   [-> tag? resolve-info?
-       tag?])
-
   (element->string
-   [-> content?
-       string?])
+   [case-> (-> content?
+               string?)
+           (-> content?
+               any/c
+               part?
+               resolve-info?
+               string?)])
   
   (element-width
    [-> content?
-       exact-nonnegative-integer?])
-
-  (block-width
-   [-> block?
-       exact-nonnegative-integer?])
-
-  (info-key?
-   [-> any/c
-       boolean?])
-
-  (part-collected-info
-   [-> part? resolve-info?
-       collected-info?])
-
-  (collect-put!
-   [-> collect-info? info-key? any/c
-       void?])
-  
-  (resolve-get
-   [-> (or/c part? #f) resolve-info? info-key?
-       any/c])
-
-  (resolve-get/tentative
-   [-> (or/c part? #f) resolve-info? info-key?
-       any/c])
-
-  (resolve-get/ext?
-   [-> (or/c part? #f) resolve-info? info-key?
-       (or/c any/c boolean?)])
-
-  (resolve-search
-   [-> any/c (or/c part? #f) resolve-info? info-key?
-       void?])
-
-  (resolve-get-keys
-   [-> (or/c part? #f) resolve-info? (info-key? . -> . any/c)
-       list?])))
+       exact-nonnegative-integer?])))

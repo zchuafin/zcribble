@@ -227,3 +227,4 @@
   (nested "Renders like:\n"
           (nested #:style 'inset (nested #:style 'inset e ...))))
 
+resolve-search

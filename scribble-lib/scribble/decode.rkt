@@ -7,22 +7,23 @@
          racket/contract/combinator
          racket/list)
 
-(provide-structs
- [title-decl ([tag-prefix (or/c #f string?)]
-              [tags (listof tag?)]
-              [version (or/c string? #f)]
-              [style style?]
-              [content content?])]
- [part-start ([depth integer?]
-              [tag-prefix (or/c #f string?)]
-              [tags (listof tag?)]
-              [style style?]
-              [title content?])]
- [splice ([run list?])]
- [part-index-decl ([plain-seq (listof string?)]
-                   [entry-seq list?])]
- [part-collect-decl ([element (or/c element? part-relative-element?)])]
- [part-tag-decl ([tag tag?])])
+(provide
+ (contract-out
+  [struct title-decl ([tag-prefix (or/c #f string?)]
+                      [tags (listof tag?)]
+                      [version (or/c string? #f)]
+                      [style style?]
+                      [content content?])]
+  [struct part-start ([depth integer?]
+                      [tag-prefix (or/c #f string?)]
+                      [tags (listof tag?)]
+                      [style style?]
+                      [title content?])]
+  [struct splice ([run list?])]
+  [struct part-index-decl ([plain-seq (listof string?)]
+                           [entry-seq list?])]
+  [struct part-collect-decl ([element (or/c element? part-relative-element?)])]
+  [struct part-tag-decl ([tag tag?])]))
 
 (provide
  (contract-out

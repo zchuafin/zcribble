@@ -7,6 +7,7 @@
          racket/provide-syntax
          racket/struct-info
          racket/contract/base
+         racket/serialize
          (for-syntax racket/base))
 
 (provide (struct-out collect-info)
@@ -15,6 +16,14 @@
          
          make-flow flow? flow-paragraphs
 
+         (rename-out [make-itemization/compat make-itemization])
+         (rename-out [make-compound-paragraph/compat make-compound-paragraph])
+         (rename-out [make-element/compat make-element])
+         (rename-out [make-part/compat make-part])
+         (rename-out [make-table/compat make-table])
+         (rename-out [make-paragraph/compat make-paragraph])
+
+         
          (except-out (compat-out part) part-title-content)
          (rename-out [part-blocks part-flow]
                      [part-title-content/compat part-title-content])
@@ -65,10 +74,8 @@
          (struct-out collected-info)
 
          (struct-out delayed-element)
-         ; delayed-element-content delayed-block-blocks current-serialize-resolve-info
          
          (struct-out part-relative-element)
-         ; part-relative-element-content collect-info-parents
 
          (struct-out delayed-index-desc)
 
@@ -77,12 +84,10 @@
          (struct*-out [render-element (render)])
 
          (struct-out generated-tag)
-         ; generate-tag tag-key current-tag-prefixes add-current-tag-prefix
 
          content->string
          (rename-out [content->string element->string]
                      [content-width element-width])
-         ; strip-aux
 
          block-width
 
@@ -191,14 +196,14 @@
 (define (unnumbered-part? p)
   (and (part? p) (memq 'unnumbered (style-properties (part-style p)))))
 
-(provide-structs
- [with-attributes ([style any/c]
-                   [assoc (listof (cons/c symbol? string?))])]
- [image-file ([path (or/c path-string?
-                          (cons/c (one-of/c 'collects)
-                                  (listof bytes?)))]
-              [scale real?])]
- [target-url ([addr path-string?] [style any/c])])
+(define-serializable-struct with-attributes (style assoc) #:transparent)
+(provide (struct-out with-attributes))
+
+(define-serializable-struct image-file (path scale) #:transparent)
+(provide (struct-out image-file))
+
+(define-serializable-struct target-url (addr style) #:transparent)
+(provide (struct-out target-url))
 
 (define (make-paragraph/compat content)
   (make-paragraph plain (list->content content)))
@@ -281,10 +286,12 @@
 
 (define (element?/compat e)
   (or (element? e) (and (list? e) (content? e))))
+
 (define (element-content/compat e)
   (cond
    [(element? e) (content->list (element-content e))]
    [else e]))
+
 (define (element-style/compat e)
   (cond
    [(element? e) (element-style e)]

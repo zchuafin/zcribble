@@ -8,7 +8,6 @@
                      toc-element-toc-content toc-target2-element-toc-content part-title-content paragraph-content 
                      element? element-content element-style)
           (for-label scribble/manual-struct
-                     scribble/struct
                      setup/main-collects))
 
 @(define (compat) @italic{For backward compatibility.})

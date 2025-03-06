@@ -15,17 +15,19 @@
 (provide 
  (contract-out
   (to-element
-   (-> any/c any/c any/c any/c
+   (->* (any/c) (#:expr? any/c #:escapes? any/c #:defn? any/c)
        element?))
   (to-element/no-color
-   (-> any/c any/c any/c
+   (->* (any/c) (#:expr? any/c #:escapes? any/c)
        element?))
   (to-paragraph
-   (-> any/c any/c any/c any/c (element? . -> . element?)
+   (->* (any/c) (#:expr? any/c #:escapes? any/c #:color? any/c #:wrap-elem (element? . -> . element?))
        block?))
   (to-paragraph/prefix
-   (-> any/c any/c any/c any/c any/c any/c any/c (element? . -> . element?)
-       block?))
+   (-> any/c any/c any/c
+       (->* (any/c)
+            (#:expr? any/c #:escapes? any/c #:color? any/c #:wrap-elem (any/c . -> . element?))
+            block?)))
   (syntax-ize
    (->* (any/c (or/c exact-nonnegative-integer? #f)) ((or/c exact-positive-integer? #f) #:expr? boolean?)
         syntax?))

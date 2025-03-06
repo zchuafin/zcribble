@@ -38,10 +38,7 @@
          scribble-eval-handler
          make-log-based-eval
          with-eval-preserve-source-locations
-         as-examples
-         racketblock+eval
-         racketmod+eval
-         with-eval-preserve-source-locations)
+         as-examples)
 
 (define scribble-eval-handler
   (make-parameter (lambda (ev c? x) (ev x))))
