@@ -1,0 +1,17 @@
+#lang racket/base
+(require racket/serialize)
+(provide (struct-out tex-addition)
+         (struct-out latex-defaults)
+         (struct-out latex-defaults+replacements)
+         (struct-out command-extras)
+         (struct-out command-optional)
+         (struct-out short-title)
+         (struct-out table-row-skip))
+         
+(define-serializable-struct tex-addition (path) #:transparent)
+(define-serializable-struct latex-defaults (prefix style extra-files) #:transparent)
+(define-serializable-struct (latex-defaults+replacements latex-defaults) (replacements) #:transparent)
+(define-serializable-struct command-extras (arguments) #:transparent)
+(define-serializable-struct command-optional (arguments) #:transparent)
+(define-serializable-struct short-title (text) #:transparent)
+(define-serializable-struct table-row-skip (amount) #:transparent)

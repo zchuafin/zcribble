@@ -1,5 +1,6 @@
 #lang racket/base
 (require "core.rkt"
+         "manual-struct-nc.rkt"
          "private/provide-structs.rkt"
          racket/contract/base)
 

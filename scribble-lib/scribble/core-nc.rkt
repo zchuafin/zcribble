@@ -4,8 +4,6 @@
          racket/contract/base
          file/convertible)
 
-
-
 ;; ----------------------------------------
 
 (define-struct collect-info (fp ht ext-ht ext-demand parts tags gen-prefix relatives parents) #:transparent)
@@ -166,6 +164,7 @@
    (or (current-load-relative-directory) (current-directory))))
 
 (provide deserialize-link-render-style)
+
 (define deserialize-link-render-style
   (make-deserialize-info (lambda (s)
                            (link-render-style s))

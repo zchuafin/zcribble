@@ -7,9 +7,9 @@
            make-styled-paragraph target-url-style make-unnumbered-part make-with-attributes with-attributes-style
            with-attributes-assoc make-image-file image-file-path image-file-scale make-aux-element aux-element?
            make-hover-element hover-element-text make-script-element script-element-type script-element-script
-           element->string element-width toc-element make-itemization make-compound-paragraph
-           make-element make-part make-table make-paragraph)
-  (except-in "core.rkt" make-itemization make-compound-paragraph make-element make-part make-table make-paragraph)
+           element->string element-width toc-element make-toc-target2-element make-itemization make-compound-paragraph
+           make-element make-part make-table make-paragraph make-page-target-element make-index-element)
+  (except-in "core.rkt" make-index-element make-toc-target2-element make-page-target-element make-itemization make-compound-paragraph make-element make-part make-table make-paragraph)
   ;(only-in "core-nc.rkt" tag-key part-number-item? element-style? content? style? nested-flow?)
   racket/provide-syntax
   racket/struct-info
@@ -47,6 +47,8 @@
  make-collect-element
  toc-target-element
  toc-target2-element
+ make-toc-target2-element
+ make-index-element
  page-target-element
  redirect-target-element
  link-element
@@ -60,6 +62,7 @@
  info-key?
  collect-put!
  element
+ make-page-target-element
  (contract-out
   [make-flow (-> any/c any/c)]
   [flow? (-> any/c boolean?)]

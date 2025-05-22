@@ -2,45 +2,45 @@
 
 (require "base.rkt"
          "core.rkt"
-         "decode.rkt")
+         "basic-nc.rkt"
+         "decode.rkt"
+         racket/contract)
 
-(provide title
-         section
-         subsection
-         subsubsection
-         subsubsub*section
-         include-section
+(provide
+ ;; precontent? and an-item? is not used?
+ (contract-out
+  (span-class
+   (->* (string?) #:rest (listof any/c) element?))
+   (aux-elem
+    (-> any/c element?))
+   (itemize
+    (->* () (#:style (or/c style? string? symbol? #f)) #:rest (listof (or/c whitespace? any/c))
+         itemization?)))
+ 
+ title
+ section
+ subsection
+ subsubsection
+ subsubsub*section
+ include-section
 
-         author
-         author+email
+ author
+ author+email
 
-         intern-taglet
-         module-path-index->taglet
-         module-path-prefix->string
+ intern-taglet
+ module-path-index->taglet
+ module-path-prefix->string
          
-         itemize item item?
+ item item?
 
-         hspace
-         elem aux-elem
-         italic bold smaller
-         tt
-         subscript superscript
+ hspace
+ elem
+ italic bold smaller
+ tt
+ subscript superscript
 
-         section-index index index* as-index index-section
-         get-index-entries index-block
+ section-index index index* as-index index-section
+ get-index-entries index-block
 
-         table-of-contents
-         local-table-of-contents
-
-         span-class)
-
-(define (span-class classname . str)
-  (make-element classname (decode-content str)))
-
-(define (aux-elem . s)
-  (make-element (make-style #f (list 'aux)) (decode-content s)))
-
-(define (itemize #:style [style #f] . items)
-  (let ([items (filter (lambda (v) (not (whitespace? v))) items)])
-    (apply itemlist #:style style items)))
-
+ table-of-contents
+ local-table-of-contents)
