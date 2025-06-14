@@ -1,9 +1,9 @@
 #lang racket/base
 
-;; Check that the HTML tags provided by scribble/html/html
-;;  and scribble/html/extra
+;; Check that the HTML tags provided by zcribble/html/html
+;;  and zcribble/html/extra
 ;;  match a master list of HTML tags (defined in this file)
-;; Also check that `scribble/html/html` is disjoint from `racket/base`
+;; Also check that `zcribble/html/html` is disjoint from `racket/base`
 
 (require rackunit racket/set)
 
@@ -31,7 +31,7 @@
             (set-intersect html-provides extra-provides)
             (expected-disjoint 'zcribble/html/html 'zcribble/html/extra))
 
-;; note: 'racket' and 'scribble/html/html' both provide "link"
+;; note: 'racket' and 'zcribble/html/html' both provide "link"
 (check-pred set-empty?
             (set-intersect html-provides base-provides)
             (expected-disjoint 'zcribble/html/html 'racket/base))

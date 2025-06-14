@@ -1,4 +1,4 @@
-#lang zcribxble/manual
+#lang zcribble/manual
 @(require (only-in xrepl/doc-utils [cmd xreplcmd])
           "guide-utils.rkt")
 

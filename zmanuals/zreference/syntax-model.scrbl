@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/struct "mz.rkt" (for-syntax mzscheme))
+#lang zcribble/doc
+@(require zcribble/struct "mz.rkt" (for-syntax mzscheme))
 
 @(define racket-eval (make-base-eval))
 @examples[#:hidden #:eval racket-eval (require (for-syntax racket/base))]

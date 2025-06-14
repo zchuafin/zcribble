@@ -1,6 +1,6 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt" 
-          scribble/bnf
+          zcribble/bnf
           (for-label racket/cmdline))
 
 @title[#:tag "logging"]{Logging}

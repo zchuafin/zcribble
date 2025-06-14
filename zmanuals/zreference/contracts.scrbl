@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt")
 @(require (for-label syntax/modcollapse
                      racket/stxparam

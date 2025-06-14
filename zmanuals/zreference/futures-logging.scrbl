@@ -1,4 +1,4 @@
-#lang scribble/doc 
+#lang zcribble/doc 
 @(require "mz.rkt" (for-label racket/future future-visualizer/trace)) 
 
 @title[#:tag "future-logging"]{Future Performance Logging}

@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/bnf "mz.rkt")
+#lang zcribble/doc
+@(require zcribble/bnf "mz.rkt")
 
 @(define MzAdd (italic "Racket-specific:"))
 

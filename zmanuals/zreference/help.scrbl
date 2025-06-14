@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require "mz.rkt" scribble/core scribble/html-properties
+#lang zcribble/doc
+@(require "mz.rkt" zcribble/core zcribble/html-properties
           (for-label racket/help net/url racket/gui/base))
 
 @; Beware of this hard-wired link to the main doc page:

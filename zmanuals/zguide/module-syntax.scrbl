@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/manual scribble/eval "guide-utils.rkt"
+#lang zcribble/doc
+@(require zcribble/manual scribble/eval "guide-utils.rkt"
           (for-label rackunit))
 
 @(define cake-eval (make-base-eval))
@@ -113,7 +113,7 @@ contains the @racketmodfont{#lang} form.
 The @racketmodfont{#lang} @racketmodname[racket/base] form has the same
 syntax as @racketmodfont{#lang} @racketmodname[racket], except that
 the longhand expansion uses @racketmodname[racket/base] instead of
-@racketmodname[racket]. The @racketmodfont{#lang} @racketmodname[scribble/manual] form, in
+@racketmodname[racket]. The @racketmodfont{#lang} @racketmodname[zcribble/manual] form, in
 contrast, has a completely different syntax that doesn't even look
 like Racket, and which we do not attempt to describe in this guide.
 

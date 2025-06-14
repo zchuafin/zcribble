@@ -1,6 +1,6 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt"
-          scribble/scheme
+          zcribble/scheme
           (for-syntax racket/base)
           (for-label racket/generator
                      racket/generic

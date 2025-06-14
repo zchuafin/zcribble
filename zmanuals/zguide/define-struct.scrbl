@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/manual scribble/eval scribble/bnf "guide-utils.rkt"
+#lang zcribble/doc
+@(require zcribble/manual scribble/eval zcribble/bnf "guide-utils.rkt"
           (for-label racket/dict racket/serialize))
 
 @(define posn-eval (make-base-eval))

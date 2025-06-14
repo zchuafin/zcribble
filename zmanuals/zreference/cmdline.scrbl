@@ -1,7 +1,7 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt"
           (for-label racket/cmdline)
-          (only-in scribble/core element))
+          (only-in zcribble/core element))
 
 @title{Command-Line Parsing}
 

@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/bnf "mz.rkt")
+#lang zcribble/doc
+@(require zcribble/bnf "mz.rkt")
 
 @title[#:style 'toc]{Reader Extension}
 
@@ -199,7 +199,7 @@ directly accessible. To invoke default behaviors, use
 character and the @racket[#f] readtable.}
 
 @(begin
-#readerscribble/comment-reader
+#readerzcribble/comment-reader
 [examples
 ;; Provides @racket[raise-read-error] and @racket[raise-read-eof-error]
 (require syntax/readerr)

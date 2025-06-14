@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt" (for-label racket/generic))
 
 @(define dict-eval (make-base-eval))

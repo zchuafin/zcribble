@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/struct
+#lang zcribble/doc
+@(require zcribble/struct
           "mz.rkt"
           (for-label racket/async-channel
                      (only-in ffi/unsafe/schedule unsafe-poller)))

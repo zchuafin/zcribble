@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/manual scribble/eval racket/class "guide-utils.rkt")
+#lang zcribble/doc
+@(require zcribble/manual scribble/eval racket/class "guide-utils.rkt")
 
 @title[#:tag "reflection" #:style 'toc]{Reflection and Dynamic Evaluation}
 

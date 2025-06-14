@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt" "match-grammar.rkt" racket/match)
 
 @(define match-eval (make-base-eval))

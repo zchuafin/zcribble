@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/manual scribble/eval scribble/core "guide-utils.rkt")
+#lang zcribble/doc
+@(require zcribble/manual scribble/eval zcribble/core "guide-utils.rkt")
 
 @(define rx-eval (make-base-eval))
 

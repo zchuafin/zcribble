@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require "mz.rkt" racket/math scribble/extract
+#lang zcribble/doc
+@(require "mz.rkt" racket/math zcribble/extract
           (for-label racket/math
                      racket/flonum
                      racket/fixnum

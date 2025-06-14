@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt" (for-label racket/fasl racket/serialize racket/fixnum racket/flonum))
 
 @(define fasl-eval (make-base-eval))

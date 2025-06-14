@@ -1,5 +1,5 @@
-#lang scribble/manual
-@(require scribble/manual
+#lang zcribble/manual
+@(require zcribble/manual
           scribble/eval
           "guide-utils.rkt"
           (for-label syntax/parse))

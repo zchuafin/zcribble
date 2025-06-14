@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/manual
+#lang zcribble/doc
+@(require zcribble/manual
           scribble/example
           "guide-utils.rkt")
 

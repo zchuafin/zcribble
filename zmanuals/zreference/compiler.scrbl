@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt")
 
 @title[#:tag "compiler"]{Controlling and Inspecting Compilation}

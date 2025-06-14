@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt" (for-label racket/unreachable racket/unsafe/ops))
 
 @title[#:tag "unreachable"]{Unreachable Expressions}

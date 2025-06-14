@@ -1,4 +1,4 @@
-#lang scribble/manual
+#lang zcribble/manual
 @(require (only-in scribblings/style/shared compare0)
           "mz.rkt"
           (for-label racket/hash-code))

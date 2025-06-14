@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt" racket/serialize (for-label racket/serialize racket/fasl))
 
 @(define ser-eval (make-base-eval))

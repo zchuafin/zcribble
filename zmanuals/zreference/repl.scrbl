@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt")
 
 @title[#:tag "repl-module"]{The @racketmodname[racket/repl] Library}

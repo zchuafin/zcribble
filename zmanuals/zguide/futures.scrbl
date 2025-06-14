@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/manual scribble/eval "guide-utils.rkt"
+#lang zcribble/doc
+@(require zcribble/manual scribble/eval "guide-utils.rkt"
           (for-label racket/flonum racket/future))
 
 @(define future-eval (make-base-eval))

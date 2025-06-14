@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt" (for-label file/sha1))
 
 @(define sha-eval (make-base-eval))

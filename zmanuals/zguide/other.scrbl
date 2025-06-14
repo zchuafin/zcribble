@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/manual "guide-utils.rkt" scribblings/private/docname)
+#lang zcribble/doc
+@(require zcribble/manual "guide-utils.rkt" scribblings/private/docname)
 
 @title{More Libraries}
 

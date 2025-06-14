@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/manual "guide-utils.rkt" (for-syntax racket/pretty))
+#lang zcribble/doc
+@(require zcribble/manual "guide-utils.rkt" (for-syntax racket/pretty))
 
 @title[#:tag "running" #:style 'toc]{Running and Creating Executables}
 

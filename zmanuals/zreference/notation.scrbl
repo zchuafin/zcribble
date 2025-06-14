@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/struct scribble/racket "mz.rkt")
+#lang zcribble/doc
+@(require zcribble/struct scribble/racket "mz.rkt")
 
 @title[#:tag "notation"]{Notation for Documentation}
 

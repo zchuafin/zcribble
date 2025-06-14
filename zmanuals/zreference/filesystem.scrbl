@@ -1,6 +1,6 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt"
-          scribble/core
+          zcribble/core
           (for-label framework/preferences
                      racket/runtime-path
                      launcher/launcher

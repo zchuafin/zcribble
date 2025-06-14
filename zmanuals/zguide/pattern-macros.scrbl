@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/manual scribble/eval scribble/racket "guide-utils.rkt"
+#lang zcribble/doc
+@(require zcribble/manual scribble/eval scribble/racket "guide-utils.rkt"
           (for-syntax racket/base))
 
 @(define swap-eval (make-base-eval))

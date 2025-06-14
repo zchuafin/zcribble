@@ -1,5 +1,5 @@
-#lang scribble/manual
-@(require scribble/struct scribble/decode scribble/eval
+#lang zcribble/manual
+@(require zcribble/struct scribble/decode scribble/eval
           (for-label racket/base racket/contract))
 
 @(define the-eval (make-base-eval))

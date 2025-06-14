@@ -444,7 +444,7 @@ For example, within a Scribble document that imports
 @racketmodname[zcribble/manual],
 
 @verbatim[#:indent 2]|{
-  @#reader scribble/comment-reader
+  @#reader zcribble/comment-reader
    (racketblock
     ;; This is not a pipe
     (make-pipe)

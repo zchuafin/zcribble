@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt")
 
 @title[#:tag "concurrency" #:style 'toc]{Concurrency and Parallelism}

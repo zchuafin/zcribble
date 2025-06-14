@@ -25,7 +25,7 @@
     (λ () (make-base-eval-factory '() #:lang '(+ 2 2))))
 
   (check-exn blames-this-module?
-    ;; https://github.com/racket/scribble/issues/117
+    ;; https://github.com/racket/zcribble/issues/117
     (λ () (make-eval-factory 'racket/dict)))
   (check-exn blames-this-module?
     (λ () (make-eval-factory '() #:lang #f '(+ 2 2))))

@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt")
 
 @title[#:tag "input-and-output" #:style 'toc]{Input and Output}

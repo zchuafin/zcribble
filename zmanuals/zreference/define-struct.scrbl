@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt" (for-syntax racket/base) (for-label racket/serialize
                                                        racket/generic
                                                        racket/keyword-transform))

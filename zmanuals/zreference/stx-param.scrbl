@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt"
           (for-label racket/stxparam racket/stxparam-exptime racket/splicing))
 

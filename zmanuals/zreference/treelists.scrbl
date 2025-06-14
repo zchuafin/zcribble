@@ -1,4 +1,4 @@
-#lang scribble/manual
+#lang zcribble/manual
 @(require "mz.rkt"
           (for-syntax racket/base)
           (for-label racket/treelist

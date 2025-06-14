@@ -1,12 +1,12 @@
-#lang scribble/doc
-@(require scribble/manual 
+#lang zcribble/doc
+@(require zcribble/manual 
           scribble/eval 
           "guide-utils.rkt"
           "module-hier.rkt"
           (for-label setup/dirs
                      setup/link
                      racket/date
-                     (only-in scribble/manual
+                     (only-in zcribble/manual
                               defmodule)))
 
 @title[#:tag "module-basics"]{Module Basics}
@@ -338,7 +338,7 @@ racket
 
 For most purposes, these choices will work the same, but there are
 exceptions. When writing documentation with @seclink[#:doc '(lib
-"scribblings/scribble/scribble.scrbl") "top"]{Scribble}, you must use
+"scribblings/zcribble/scribble.scrbl") "top"]{Scribble}, you must use
 a collection path with @racket[defmodule] and similar forms; that's
 partly because documentation is meant to be read by client
 programmers, and so the collection-based name should appear.

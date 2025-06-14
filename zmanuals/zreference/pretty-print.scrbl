@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require "mz.rkt" scribble/bnf)
+#lang zcribble/doc
+@(require "mz.rkt" zcribble/bnf)
 
 @title[#:tag "pretty-print"]{Pretty Printing}
 

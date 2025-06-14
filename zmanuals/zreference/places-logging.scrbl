@@ -1,4 +1,4 @@
-#lang scribble/doc 
+#lang zcribble/doc 
 @(require "mz.rkt" (for-label racket/place))
 
 @title[#:tag "place-logging"]{Places Logging}

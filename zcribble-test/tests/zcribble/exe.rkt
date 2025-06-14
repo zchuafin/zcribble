@@ -3,7 +3,7 @@
          compiler/embed
          racket/system)
 
-;; Check that `scribble/manual` can be embedded in an executable
+;; Check that `zcribble/manual` can be embedded in an executable
 
 (define src (make-temporary-file))
 (define exe (make-temporary-file))

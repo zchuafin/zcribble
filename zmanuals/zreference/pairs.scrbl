@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require "mz.rkt" scribble/scheme racket/generator racket/list
+#lang zcribble/doc
+@(require "mz.rkt" zcribble/scheme racket/generator racket/list
           (for-syntax racket/base)
           (for-label racket/list racket/list/iteration racket/list/grouping))
 

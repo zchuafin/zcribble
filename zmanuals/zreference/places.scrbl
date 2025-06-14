@@ -1,10 +1,10 @@
-#lang scribble/doc
+#lang zcribble/doc
 
 @title[#:tag "places"]{Places}
 
 @; ----------------------------------------------------------------------
 
-@(require scribble/manual scribble/urls scribble/struct "mz.rkt"
+@(require zcribble/manual zcribble/urls zcribble/struct "mz.rkt"
           (for-label racket
                      racket/base
                      racket/contract

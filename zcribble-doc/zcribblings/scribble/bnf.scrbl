@@ -1,6 +1,6 @@
 #lang zcribble/doc
 @(require zcribble/manual "utils.rkt" zcribble/bnf
-          ;; "utils.rkt" provides scribble/bnf for-label
+          ;; "utils.rkt" provides zcribble/bnf for-label
           )
 
 @title[#:tag "bnf"]{BNF Grammars}

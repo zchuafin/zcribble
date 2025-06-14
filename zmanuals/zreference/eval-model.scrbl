@@ -1,6 +1,6 @@
-#lang scribble/manual
+#lang zcribble/manual
 
-@(require scribble/struct scribble/racket "mz.rkt" "prog-steps.rkt"
+@(require zcribble/struct zcribble/racket "mz.rkt" "prog-steps.rkt"
           (for-syntax racket/base))
 
 @(define reduces (make-element #f (list 'rarr)))

@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/bnf "mz.rkt")
+#lang zcribble/doc
+@(require zcribble/bnf "mz.rkt")
 
 @title[#:tag "unixpaths"]{@|AllUnix| Paths}
 

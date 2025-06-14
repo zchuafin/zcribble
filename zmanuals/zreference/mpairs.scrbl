@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt" scribble/racket (for-label racket/mpair))
 
 @title[#:tag "mpairs"]{Mutable Pairs and Lists}

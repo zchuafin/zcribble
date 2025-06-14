@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/manual "guide-utils.rkt"
+#lang zcribble/doc
+@(require zcribble/manual "guide-utils.rkt"
           (for-label racket/flonum racket/place))
 
 @title[#:tag "effective-places"]{Parallelism with Places}

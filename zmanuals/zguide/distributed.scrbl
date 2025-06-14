@@ -1,8 +1,8 @@
-#lang scribble/doc
-@(require scribble/manual
+#lang zcribble/doc
+@(require zcribble/manual
           (except-in "guide-utils.rkt" log-message)
           scribble/eval
-          scriblib/figure
+          zcriblib/figure
           racket/port
           racket/contract
           (for-label racket/place/distributed

@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/manual "guide-utils.rkt" scribblings/private/docname)
+#lang zcribble/doc
+@(require zcribble/manual "guide-utils.rkt" scribblings/private/docname)
 
 @title[#:tag "graphics"]{Graphics and GUIs}
 
@@ -26,7 +26,7 @@ interfaces (GUIs):
        This layer is especially useful for creating slide
        presentations with @Slideshow{Slideshow}, but
        it is also useful for creating images for @seclink[#:doc '(lib
-       "scribblings/scribble/scribble.scrbl") "top"]{Scribble}
+       "scribblings/zcribble/scribble.scrbl") "top"]{Scribble}
        documents or other drawing tasks. Pictures created with the
        @racketmodname[pict #:indirect] library can be rendered to any
        drawing context.

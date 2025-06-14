@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt" (for-label racket/splicing racket/stxparam racket/local))
 
 @(define splice-eval (make-base-eval))

@@ -448,7 +448,7 @@
                                  '())
                              '(file/convertible
                                racket/serialize
-                               scribble/private/serialize))])
+                               zcribble/private/serialize))])
        (let ([e (apply make-evaluator lang ips)])
          (when pretty-print?
            (call-in-sandbox-context e

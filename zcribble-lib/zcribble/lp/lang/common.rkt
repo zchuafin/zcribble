@@ -124,21 +124,21 @@
     [(_) (raise-no-chunks-error)]
     [(_ body0 . body)
      (let ([expanded 
-            (expand `(,#'module scribble-lp-tmp-name scribble/private/lp
+            (expand `(,#'module scribble-lp-tmp-name zcribble/private/lp
                                 ,@(strip-context #'(body0 . body))))])
        (syntax-case expanded ()
          [(module name lang (mb . stuff))
           (begin (extract-chunks #'stuff)
                  #`(#%module-begin
-                    (module configure-runtime racket/base (require scribble/base/lang/configure-runtime))
+                    (module configure-runtime racket/base (require zcribble/base/lang/configure-runtime))
                     (tangle body0)
-                    ;; The `doc` submodule allows a `scribble/lp` module
+                    ;; The `doc` submodule allows a `zcribble/lp` module
                     ;; to be provided to `scribble`:
                     #,@(if submod?
                            (list
                             (let ([submod
                                    (strip-context
-                                    #`(module doc scribble/doclang2
+                                    #`(module doc zcribble/doclang2
                                         (require zcribble/manual
                                                  (only-in zcribble/private/lp chunk CHUNK))
                                         (begin body0 . body)))])
@@ -151,4 +151,4 @@
 (define-syntax module-begin/doc (make-module-begin #t))
 
 (define-for-syntax (raise-no-chunks-error)
-  (raise-syntax-error 'scribble/lp "no chunks"))
+  (raise-syntax-error 'zcribble/lp "no chunks"))

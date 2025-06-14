@@ -81,7 +81,7 @@
 
 (test-case "authors"
   ;; Define authors, make a bibliography
-  ;; https://github.com/racket/scribble/issues/216
+  ;; https://github.com/racket/zcribble/issues/216
 
   (check-not-exn
     (lambda ()

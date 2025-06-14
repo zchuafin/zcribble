@@ -1,4 +1,4 @@
-#lang scribble/manual
+#lang zcribble/manual
 @(require scribble/eval "guide-utils.rkt" scribblings/private/docname)
 
 @title{ZThe Racket Guide}

@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require "mz.rkt" scribble/example)
+#lang zcribble/doc
+@(require "mz.rkt" zcribble/example)
 
 @title[#:tag "pathutils" #:style 'toc]{Paths}
 

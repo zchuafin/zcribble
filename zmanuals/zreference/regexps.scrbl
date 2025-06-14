@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/bnf 
+#lang zcribble/doc
+@(require zcribble/bnf 
           "mz.rkt" 
           "rx.rkt"
           (for-syntax racket/base))

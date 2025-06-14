@@ -3,7 +3,7 @@
 ;; (X)HTML elements etc.
 ;; Keep this file up to date with:
 ;;    https://html.spec.whatwg.org/multipage/#toc-semantics
-;; Put esoteric elements in scribble/html/extra
+;; Put esoteric elements in zcribble/html/extra
 
 (require "xml.rkt" zcribble/text)
 

@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt")
 
 @title[#:tag "customport"]{Custom Ports}
@@ -401,7 +401,7 @@ The arguments implement the port as follows:
  @racket[peek-byte-or-special], then the @exnraise[exn:fail:contract].}
 
 @(begin
-#reader scribble/comment-reader
+#reader zcribble/comment-reader
 [examples
 ;; A port with no input...
 ;; Easy: @racket[(open-input-bytes #"")]
@@ -1018,7 +1018,7 @@ procedures.
 }
 
 @(begin
-#reader scribble/comment-reader
+#reader zcribble/comment-reader
 [examples
 ;; A port that writes anything to nowhere:
 (define /dev/null-out

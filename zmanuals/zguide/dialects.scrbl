@@ -1,5 +1,5 @@
-#lang scribble/base
-@(require scribble/manual (except-in scribblings/private/docname Quick)
+#lang zcribble/base
+@(require zcribble/manual (except-in scribblings/private/docname Quick)
           "guide-utils.rkt")
 
 @title[#:tag "dialects" #:style 'toc]{Dialects of Racket and Scheme}
@@ -55,22 +55,22 @@ including the following:
        @seclink["top" #:doc '(lib "frtime/scribblings/frtime.scrbl")
        #:indirect? #t]{the FrTime documentation}.}
        
- @item{@racketmodname[scribble/base] --- a language, which looks more
+ @item{@racketmodname[zcribble/base] --- a language, which looks more
        like Latex than Racket, for writing documentation; see
-       @other-manual['(lib "scribblings/scribble/scribble.scrbl")]}
+       @other-manual['(lib "scribblings/zcribble/scribble.scrbl")]}
 
 ]
 
 Each of these languages is used by starting module with the language
 name after @hash-lang[]. For example, this source of this
-document starts with @racket[@#,hash-lang[] scribble/base].
+document starts with @racket[@#,hash-lang[] zcribble/base].
 
 Furthermore, Racket users can define their own languages, as discussed
 in @secref["languages"]. Typically, a language name maps to its
 implementation through a module path by adding
 @racketidfont{/lang/reader}; for example, the language name
-@racketmodname[scribble/base] is expanded to
-@racket[scribble/base/lang/reader], which is the module that
+@racketmodname[zcribble/base] is expanded to
+@racket[zcribble/base/lang/reader], which is the module that
 implements the surface-syntax parser. Some language names act as
 language loaders; for example, @racket[@#,hash-lang[]
 @#,racketmodname[planet] _planet-path] downloads, installs, and uses a

@@ -1,6 +1,6 @@
-#lang scribble/doc
-@(require scribble/manual
-          scribble/struct
+#lang zcribble/doc
+@(require zcribble/manual
+          zcribble/struct
           "mz.rkt"
           (for-label racket/contract
                      racket/math

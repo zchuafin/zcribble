@@ -1,6 +1,6 @@
-#lang scribble/manual
+#lang zcribble/manual
 @(require "mz.rkt"
-          scribble/bnf)
+          zcribble/bnf)
 
 @title[#:tag "memory" #:style 'toc]{Memory Management}
 

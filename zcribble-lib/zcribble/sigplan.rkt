@@ -53,7 +53,7 @@
 (define-syntax-rule (defopts name ...)
   (begin (define-syntax (name stx)
            (raise-syntax-error #f
-                               "option must appear on the same line as `#lang scribble/sigplan'"
+                               "option must appear on the same line as `#lang zcribble/sigplan'"
                                stx))
          ...
          (provide name ...)))

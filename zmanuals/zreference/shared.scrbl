@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require "mz.rkt" scribble/struct racket/shared (for-label racket/shared racket/undefined))
+#lang zcribble/doc
+@(require "mz.rkt" zcribble/struct racket/shared (for-label racket/shared racket/undefined))
 
 
 @(define shared-eval (make-base-eval))

@@ -1,6 +1,6 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt" 
-          scribble/bnf scribble/core
+          zcribble/bnf zcribble/core
 	  scribblings/private/docname
           (for-label (only-in racket/require-transform
                               make-require-transformer

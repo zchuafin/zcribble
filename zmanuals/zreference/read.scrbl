@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt")
 
 @title{Reading}
@@ -159,7 +159,7 @@ If no information is available for a given key, the result should be
 the second argument.
 @mz-examples[
 (define scribble-manual-info
-  (read-language (open-input-string "#lang scribble/manual")))
+  (read-language (open-input-string "#lang zcribble/manual")))
 (scribble-manual-info 'color-lexer #f)
 (scribble-manual-info 'something-else #f)
 ]

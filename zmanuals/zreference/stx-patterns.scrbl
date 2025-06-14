@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt" (for-label syntax/parse))
 
 @(define lit-ellipsis (racket ...))

@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/manual scribble/struct scribble/eval racket/system
+#lang zcribble/doc
+@(require zcribble/manual zcribble/struct scribble/eval racket/system
           "guide-utils.rkt"
           (for-label racket/tcp racket/serialize racket/port
                      racket/string))

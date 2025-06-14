@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/manual scribble/eval scribble/racket
+#lang zcribble/doc
+@(require zcribble/manual scribble/eval scribble/racket
           "guide-utils.rkt" "modfile.rkt"
           (for-syntax racket/base)
           (for-label setup/dirs
@@ -36,7 +36,7 @@ The syntax of a @racket[_language] intentionally overlaps with the
 syntax of a module path as used in @racket[require] or as a
 @tech{module language}, so that names like @racketmodname[racket],
 @racketmodname[racket/base], @racketmodname[slideshow #:indirect], or
-@racketmodname[scribble/manual] can be used both as @hash-lang[]
+@racketmodname[zcribble/manual] can be used both as @hash-lang[]
 languages and as module paths.
 
 At the same time, the syntax of @racket[_language] is far more
@@ -258,7 +258,7 @@ documents, where Scribble extends the normal Racket to better support
 text. Here is an example Scribble document:
 
 @verbatim[#:indent 2]|{
-#lang scribble/base
+#lang zcribble/base
 
 @(define (get-name) "Self-Describing Document")
 
@@ -269,18 +269,18 @@ The title of this document is ``@(get-name).''
 
 If you put that program in DrRacket's @tech{definitions area} and
 click @onscreen{Run}, then nothing much appears to happen. The
-@racketmodname[scribble/base] language just binds and exports
+@racketmodname[zcribble/base] language just binds and exports
 @racketidfont{doc} as a description of a document, similar to the way
 that @filepath{literal.rkt} exports a string as @racketidfont{data}.
 
 Simply opening a module with the language
-@racketmodname[scribble/base] in DrRacket, however, causes a
+@racketmodname[zcribble/base] in DrRacket, however, causes a
 @onscreen{Scribble HTML} button to appear. Furthermore, DrRacket knows
 how to colorize Scribble syntax by coloring green those parts of the
 document that correspond to literal text. The language name
-@racketmodname[scribble/base] is not hard-wired into
+@racketmodname[zcribble/base] is not hard-wired into
 DrRacket. Instead, the implementation of the
-@racketmodname[scribble/base] language provides button and
+@racketmodname[zcribble/base] language provides button and
 syntax-coloring information in response to a query from DrRacket.
 
 If you have installed the @racket[literal] language as described in

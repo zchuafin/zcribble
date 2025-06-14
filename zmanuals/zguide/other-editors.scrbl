@@ -1,4 +1,4 @@
-#lang scribble/manual
+#lang zcribble/manual
 @(require "guide-utils.rkt")
 
 @title[#:tag "other-editors" #:style 'toc]{Command-Line Tools and Your Editor of Choice}
@@ -177,7 +177,7 @@ installing it yourself provides additional features.
 The @tt{vim-racket} plugin detects the @tt{filetype} option based on the @(hash-lang)
 line. For example:@itemlist[
     @item{A file starting with @code{#lang racket} or @code{#lang racket/base} has @tt{filetype} equal to @tt{racket}.}
-    @item{A file starting with @code{#lang scribble/base} or @code{#lang scribble/manual} has @tt{filetype} equal to @tt{scribble}.}
+    @item{A file starting with @code{#lang zcribble/base} or @code{#lang zcribble/manual} has @tt{filetype} equal to @tt{scribble}.}
 ]
 
 The @tt{vim-racket} plugin comes with configuration for Racket and some other

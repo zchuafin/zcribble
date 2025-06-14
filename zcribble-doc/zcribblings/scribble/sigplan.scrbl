@@ -68,7 +68,7 @@ with only whitespace (or other options) between
 @racketmodname[zcribble/sigplan] and @racket[noqcourier]:
 
 @codeblock|{
-  #lang scribble/sigplan @noqcourier
+  #lang zcribble/sigplan @noqcourier
 }|}
 
 The @racket[10pt], @racket[preprint], @racket[nocopyright], 

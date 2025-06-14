@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt" (for-label racket/extflonum
                               racket/fixnum ; for fl->fx and fx->fl
                               racket/flonum))

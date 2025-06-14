@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt")
 
 @title[#:tag "thread-local-storage" #:style 'toc]{Thread-Local Storage}

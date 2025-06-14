@@ -1,5 +1,5 @@
-#lang scribble/doc
-@(require scribble/manual scribble/eval scribble/bnf racket/list
+#lang zcribble/doc
+@(require zcribble/manual scribble/eval zcribble/bnf racket/list
           "guide-utils.rkt"
           (for-label racket/list))
 

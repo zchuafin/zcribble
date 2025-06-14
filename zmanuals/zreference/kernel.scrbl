@@ -1,4 +1,4 @@
-#lang scribble/manual
+#lang zcribble/manual
 @(require (for-label (except-in racket/base
                                 lambda λ #%app #%module-begin)
                      (only-in racket/base

@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require (except-in "mz.rkt" import export)
           (for-syntax racket/base)
           (for-label racket/require-transform

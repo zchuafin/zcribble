@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require "mz.rkt"
           (for-label setup/dirs
                      setup/collection-search))

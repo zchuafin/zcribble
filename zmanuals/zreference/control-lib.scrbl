@@ -1,4 +1,4 @@
-#lang scribble/doc
+#lang zcribble/doc
 @(require (except-in "mz.rkt" set) (for-label racket/control))
 
 @title{Additional Control Operators}
